@@ -15,13 +15,13 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_C42C1114678841018FB6E7ED7C558EE3"
+        "MsmKey" = "8:_22CCC43FD319454280D12722A81433D7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_EF5324EBCE40490CBFB495D7822CCDA0"
+        "MsmKey" = "8:_323FF93EEA0B465CAFEB318E0B1DC901"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -50,6 +50,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
         "Release"
@@ -74,6 +82,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.CoreRuntime.8.0.Arm64"
+                    {
+                    "Name" = "8:.NET Runtime 8.0.11 (Arm64)"
+                    "ProductCode" = "8:Microsoft.NetCore.CoreRuntime.8.0.Arm64"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.CoreRuntime.8.0.x64"
+                    {
+                    "Name" = "8:.NET Runtime 8.0.11 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.CoreRuntime.8.0.x64"
+                    }
+                }
             }
         }
     }
@@ -106,7 +127,7 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C42C1114678841018FB6E7ED7C558EE3"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_323FF93EEA0B465CAFEB318E0B1DC901"
             {
             "SourcePath" = "8:..\\..\\..\\..\\Projects\\Icons\\Ship, Captain, and Crew Icon.ico"
             "TargetName" = "8:Ship, Captain, and Crew Icon.ico"
@@ -314,7 +335,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_4011089BE3F9422E85561CDC47504865"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_39870CC6CC1E4E0188C05FADA5D13410"
             {
             "Name" = "8:Ship, Captain, and Crew"
             "Arguments" = "8:"
@@ -322,36 +343,22 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_EF5324EBCE40490CBFB495D7822CCDA0"
-            "Folder" = "8:_94680232938B403EA23B1A0E90382D98"
-            "WorkingFolder" = "8:_920446D7C80F4AAA89C30AF14E20763F"
-            "Icon" = "8:"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_485B964A795B4AF6ADAFFA22B625253F"
-            {
-            "Name" = "8:Ship, Captain, and Crew"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_EF5324EBCE40490CBFB495D7822CCDA0"
-            "Folder" = "8:_920446D7C80F4AAA89C30AF14E20763F"
-            "WorkingFolder" = "8:_920446D7C80F4AAA89C30AF14E20763F"
-            "Icon" = "8:"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_652E46A6A1244F34BBFD61CCC5A4FB40"
-            {
-            "Name" = "8:Ship, Captain, and Crew"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_EF5324EBCE40490CBFB495D7822CCDA0"
+            "Target" = "8:_22CCC43FD319454280D12722A81433D7"
             "Folder" = "8:_10AFD45D46AC4F04989CBDA6DB227191"
+            "WorkingFolder" = "8:_920446D7C80F4AAA89C30AF14E20763F"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_BC880957573F487DAFB0BDB08474D07B"
+            {
+            "Name" = "8:Ship, Captain, and Crew"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_22CCC43FD319454280D12722A81433D7"
+            "Folder" = "8:_94680232938B403EA23B1A0E90382D98"
             "WorkingFolder" = "8:_920446D7C80F4AAA89C30AF14E20763F"
             "Icon" = "8:"
             "Feature" = "8:"
@@ -755,9 +762,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_EF5324EBCE40490CBFB495D7822CCDA0"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_22CCC43FD319454280D12722A81433D7"
             {
-            "SourcePath" = "8:..\\ShipCaptainAndCrew\\obj\\Release\\net8.0\\apphost.exe"
+            "SourcePath" = "8:..\\ShipCaptainAndCrew\\obj\\Release\\net8.0\\ShipCaptainAndCrew.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_920446D7C80F4AAA89C30AF14E20763F"
@@ -776,7 +783,7 @@
             "IsolateTo" = "8:"
             "ProjectOutputGroupRegister" = "3:1"
             "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:PublishItems"
+            "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{C7B771CD-D3FC-4197-B46C-D498594E88D3}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
