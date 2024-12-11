@@ -20,9 +20,7 @@ namespace ShipCaptainAndCrew
             }
             catch (Exception ex)
             {
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine("Sorry, but there was an issue with the connection to the database. This may be due to a temporary network issue or a problem with the database, or it may be an issue with your internet connection. Please try again later or send me an e-mail at daleoster@outlook.com for assistance.");
+                Program.Speak("Sorry, but there was an issue with the connection to the database. This may be due to a temporary network issue or a problem with the database, or it may be an issue with your internet connection. Please try again later or send me an e-mail at daleoster@outlook.com for assistance.");
                 return null;
             }
         }
@@ -35,9 +33,7 @@ namespace ShipCaptainAndCrew
             }
             catch (Exception ex)
             {
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine("Sorry, but there was an issue with the connection to the database. This may be due to a temporary network issue or a problem with the database, or it may be an issue with your internet connection. Please try again later or send me an e-mail at daleoster@outlook.com for assistance.");
+                Program.Speak("Sorry, but there was an issue with the connection to the database. This may be due to a temporary network issue or a problem with the database, or it may be an issue with your internet connection. Please try again later or send me an e-mail at daleoster@outlook.com for assistance.");
                 return null;
             }
         }
@@ -50,9 +46,7 @@ namespace ShipCaptainAndCrew
             }
             catch (Exception ex)
             {
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine("Sorry, but there was an issue with the connection to the database. This may be due to a temporary network issue or a problem with the database, or it may be an issue with your internet connection. Please try again later or send me an e-mail at daleoster@outlook.com for assistance.");
+                Program.Speak("Sorry, but there was an issue with the connection to the database. This may be due to a temporary network issue or a problem with the database, or it may be an issue with your internet connection. Please try again later or send me an e-mail at daleoster@outlook.com for assistance.");
                 return null;
             }
         }
@@ -65,9 +59,7 @@ namespace ShipCaptainAndCrew
             }
             catch (Exception ex)
             {
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine("Sorry, but there was an issue with the connection to the database. This may be due to a temporary network issue or a problem with the database, or it may be an issue with your internet connection. Please try again later or send me an e-mail at daleoster@outlook.com for assistance.");
+                Program.Speak("Sorry, but there was an issue with the connection to the database. This may be due to a temporary network issue or a problem with the database, or it may be an issue with your internet connection. Please try again later or send me an e-mail at daleoster@outlook.com for assistance.");
                 return -1;
             }
         }
@@ -77,15 +69,12 @@ namespace ShipCaptainAndCrew
             try
             {
                 _connection.Execute("UPDATE ShipCaptainAndCrew SET GamesPlayed = 0, GamesWon = 0, AllTimeTreasure = 0 WHERE Username = @username;", new { username });
-                Console.WriteLine("Your stats have been successfully reset for this game.");
-                Console.WriteLine();
-                Menu.OpenMenu();
+                Program.Speak("Your stats have been successfully reset for this game.");
+                Options.Run();
             }
             catch (Exception ex)
             {
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine("Sorry, but there was an issue with the connection to the database. This may be due to a temporary network issue or a problem with the database, or it may be an issue with your internet connection. Please try again later or send me an e-mail at daleoster@outlook.com for assistance.");
+                Program.Speak("Sorry, but there was an issue with the connection to the database. This may be due to a temporary network issue or a problem with the database, or it may be an issue with your internet connection. Please try again later or send me an e-mail at daleoster@outlook.com for assistance.");
                 Environment.Exit(0);
             }
         }
@@ -95,15 +84,11 @@ namespace ShipCaptainAndCrew
             try
             {
                 _connection.Execute("INSERT INTO Users (Username, Password) VALUES (@username, @password)", new { username, password });
-                Console.WriteLine();
-                Console.WriteLine("Your account has been successfully created.");
-                Console.WriteLine();
+                Program.Speak("Your account has been successfully created.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine("Sorry, but there was an issue with the connection to the database. This may be due to a temporary network issue or a problem with the database, or it may be an issue with your internet connection. Please try again later or send me an e-mail at daleoster@outlook.com for assistance.");
+                Program.Speak("Sorry, but there was an issue with the connection to the database. This may be due to a temporary network issue or a problem with the database, or it may be an issue with your internet connection. Please try again later or send me an e-mail at daleoster@outlook.com for assistance.");
                 Environment.Exit(0);
             }
         }
@@ -116,9 +101,7 @@ namespace ShipCaptainAndCrew
             }
             catch (Exception ex)
             {
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine("Sorry, but there was an issue with the connection to the database. This may be due to a temporary network issue or a problem with the database, or it may be an issue with your internet connection. Please try again later or send me an e-mail at daleoster@outlook.com for assistance.");
+                Program.Speak("Sorry, but there was an issue with the connection to the database. This may be due to a temporary network issue or a problem with the database, or it may be an issue with your internet connection. Please try again later or send me an e-mail at daleoster@outlook.com for assistance.");
                 Environment.Exit(0);
             }
         }
@@ -129,13 +112,12 @@ namespace ShipCaptainAndCrew
             {
                 _connection.Execute("DELETE FROM ShipCaptainAndCrew WHERE Username = @username", new { username = username });
                 _connection.Execute("DELETE FROM Users WHERE Username = @username", new { username = username });
-                Console.WriteLine("Your account has been successfully deleted.");
+                Program.Speak("Your account has been deleted. Taking you back to the login screen.");
                 Login.Run();
             }
             catch (Exception ex)
             {
-                Console.WriteLine();
-                Console.WriteLine("Sorry, but there was an issue with the connection to the database. This may be due to a temporary network issue or a problem with the database, or it may be an issue with your internet connection. Please try again later or send me an e-mail at daleoster@outlook.com for assistance.");
+                Program.Speak("Sorry, but there was an issue with the connection to the database. This may be due to a temporary network issue or a problem with the database, or it may be an issue with your internet connection. Please try again later or send me an e-mail at daleoster@outlook.com for assistance.");
                 Environment.Exit(0);
             }
         }

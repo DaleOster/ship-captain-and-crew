@@ -1,4 +1,8 @@
-﻿using System.Data;
+﻿using Microsoft.Identity.Client;
+using System.ComponentModel;
+using System.Data;
+using System.Speech.Recognition;
+using System.Speech.Synthesis;
 
 namespace ShipCaptainAndCrew
 {
@@ -6,174 +10,105 @@ namespace ShipCaptainAndCrew
     {
         public static void OpenMenu()
         {
+            Program.Speak("Main Menu - on \"Play\"");
             var userRepo = DatabaseHelper.Connect();
-            while (true)
+            List<string> menuItems = new List<string>() { "Play", "View stats", "View Leaderboards", "Read Rules", "Options" };
+            int currentMenuOption = 0;
+            int newMenuOption;
+            bool enterPressed = false;
+            while (enterPressed == false)
             {
-                Console.WriteLine("What would you like to do?");
-                Console.WriteLine("1) Play");
-                Console.WriteLine("2) View my stats");
-                Console.WriteLine("3) View the leaderboards");
-                Console.WriteLine("4) Read the rules");
-                Console.WriteLine("5) Reset stats");
-                Console.WriteLine("6) Delete account");
-                var input = Console.ReadLine();
-                int choice;
-                var validInput = int.TryParse(input, out choice);
-                if (validInput == true)
+                ConsoleKey key = Console.ReadKey(intercept: true).Key;
+                switch (key)
                 {
-                    if (choice >= 1 && choice <= 6)
+                    case ConsoleKey.UpArrow:
+                        if (currentMenuOption > 0)
+                        {
+                            newMenuOption = currentMenuOption - 1;
+                            Program.Speak(menuItems[newMenuOption]);
+                            currentMenuOption--;
+                            break;
+                        }
+                        else
+                        {
+                            currentMenuOption = 0;
+                            break;
+                        }
+                    case ConsoleKey.DownArrow:
+                        if (currentMenuOption < 4)
+                        {
+                            newMenuOption = currentMenuOption + 1;
+                            Program.Speak(menuItems[newMenuOption]);
+                            currentMenuOption++;
+                            break;
+                        }
+                        else
+                        {
+                            currentMenuOption = 4;
+                            break;
+                        }
+                    case ConsoleKey.Enter:
+                        enterPressed = true;
+                        break;
+                    default:
+                        continue;
+                }
+            }
+            switch (currentMenuOption)
+            {
+                case 0:
+                    Gameplay.SetUpGame(Gameplay.ChooseOponents());
+                    Gameplay.Play();
+                    break;
+                case 1:
+                    if (userRepo.GetUser(PlayerList.allPlayers.First().GetName()) == null)
                     {
-                        if (choice == 1)
-                        {
-                            Gameplay.SetUpGame(Gameplay.ChooseOponents());
-                            Gameplay.Play();
-                        }
-                        else if (choice == 2)
-                        {
-                            if (userRepo.GetUser(PlayerList.allPlayers.First().GetName()) == null)
-                            {
-                                Environment.Exit(0);
-                            }
-                            else
-                            {
-                                Console.WriteLine();
-                                Console.WriteLine($"Account created: {userRepo.GetUser(PlayerList.allPlayers.First().GetName()).UserSince} (UTC)");
-                                Console.WriteLine();
-                                Console.WriteLine("Your stats for Ship, Captain, and Crew:");
-                                Console.WriteLine($"Total games played: {userRepo.GetUser(PlayerList.allPlayers.First().GetName()).GamesPlayed}");
-                                Console.WriteLine($"Total games won: {userRepo.GetUser(PlayerList.allPlayers.First().GetName()).GamesWon}");
-                                Console.WriteLine($"All-time treasure collected: {userRepo.GetUser(PlayerList.allPlayers.First().GetName()).AllTimeTreasure}");
-                                Console.WriteLine();
-                                OpenMenu();
-                            }
-                        }
-                        else if (choice == 3)
-                        {
-                            if (userRepo.GetAllUsers() == null)
-                            {
-                                Environment.Exit(0);
-                            }
-                            else
-                            {
-                                var mostGamesWon = userRepo.GetAllUsers().OrderByDescending(u => u.GamesWon).ToList();
-                                Console.WriteLine();
-                                Console.WriteLine("Players with the most wins:");
-                                var position = 1;
-                                foreach (var user in mostGamesWon)
-                                {
-                                    Console.WriteLine($"{position}. {user.Username} ({user.GamesWon})");
-                                    position++;
-                                }
-                                var mostTreasure = userRepo.GetAllUsers().OrderByDescending(u => u.AllTimeTreasure).ToList();
-                                Console.WriteLine();
-                                Console.WriteLine("Players with the most treasure collected:");
-                                position = 1;
-                                foreach (var user in mostTreasure)
-                                {
-                                    Console.WriteLine($"{position}. {user.Username} ({user.AllTimeTreasure})");
-                                    position++;
-                                }
-                                Console.WriteLine();
-                                OpenMenu();
-                            }
-                        }
-                        else if (choice == 4)
-                        {
-                            ReadRules();
-                        }
-                        else if (choice == 5)
-                        {
-                            while (true)
-                            {
-                                Console.WriteLine();
-                                Console.WriteLine("Are you sure you want to reset your stats?");
-                                Console.WriteLine("This will only reset your stats for this game.");
-                                Console.WriteLine("1) Reset stats");
-                                Console.WriteLine("2) Cancel");
-                                var userInput = Console.ReadLine();
-                                int decision;
-                                var validChoice = int.TryParse(userInput, out decision);
-                                if (validChoice == true)
-                                {
-                                    Console.WriteLine();
-                                    if (decision >= 1 && decision <= 2)
-                                    {
-                                        if (decision == 1)
-                                        {
-                                            userRepo.ResetStats(PlayerList.allPlayers.First().GetName());
-                                        }
-                                        else
-                                        {
-                                            OpenMenu();
-                                            break;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Please make a valid selection.");
-                                        Console.WriteLine();
-                                        continue;
-                                    }
-                                }
-                            }
-                        }
-                        else if (choice == 6)
-                        {
-                            while (true)
-                            {
-                                Console.WriteLine();
-                                Console.WriteLine("Are you sure you want to delete your account? This is permanent and cannot be undone.");
-                                Console.WriteLine("Please note that this will delete your account for all games, not just this one.");
-                                Console.WriteLine("1) Delete account");
-                                Console.WriteLine("2) Cancel");
-                                var userInput = Console.ReadLine();
-                                int decision;
-                                var validChoice = int.TryParse(userInput, out decision);
-                                if (validChoice == true)
-                                {
-                                    Console.WriteLine();
-                                    if (decision >= 1 && decision <= 2)
-                                    {
-                                        if (decision == 1)
-                                        {
-                                            userRepo.DeleteUser(PlayerList.allPlayers.First().GetName());
-                                        }
-                                        else
-                                        {
-                                            OpenMenu();
-                                            break;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Please make a valid selection.");
-                                        continue;
-                                    }
-                                }
-                                else
-                                {
-                                    Console.WriteLine();
-                                    Console.WriteLine("Please make a valid selection.");
-                                    continue;
-                                }
-                            }
-                        }
+                        Environment.Exit(0);
+                        break;
                     }
                     else
                     {
-                        Console.WriteLine();
-                        Console.WriteLine("Please make a valid selection.");
-                        Console.WriteLine();
-                        continue;
+                        Program.Speak($"Account created: {userRepo.GetUser(PlayerList.allPlayers.First().GetName()).UserSince} (UTC)");
+                        Program.Speak("Your stats for Ship, Captain, and Crew:");
+                        Program.Speak($"Total games played: {userRepo.GetUser(PlayerList.allPlayers.First().GetName()).GamesPlayed}");
+                        Program.Speak($"Total games won: {userRepo.GetUser(PlayerList.allPlayers.First().GetName()).GamesWon}");
+                        Program.Speak($"All-time treasure collected: {userRepo.GetUser(PlayerList.allPlayers.First().GetName()).AllTimeTreasure}");
+                        OpenMenu();
+                        break;
                     }
-                }
-                else
-                {
-                    Console.WriteLine();
-                    Console.WriteLine("Please make a valid selection.");
-                    Console.WriteLine();
-                    continue;
-                }
+                case 2:
+                    if (userRepo.GetAllUsers() == null)
+                    {
+                        Environment.Exit(0);
+                        break;
+                    }
+                    else
+                    {
+                        var mostGamesWon = userRepo.GetAllUsers().OrderByDescending(u => u.GamesWon).ToList();
+                        Program.Speak("Players with the most wins:");
+                        var position = 1;
+                        foreach (var user in mostGamesWon)
+                        {
+                            Program.Speak($"{position}. {user.Username} ({user.GamesWon})");
+                            position++;
+                        }
+                        var mostTreasure = userRepo.GetAllUsers().OrderByDescending(u => u.AllTimeTreasure).ToList();
+                        Program.Speak("Players with the most treasure collected:");
+                        position = 1;
+                        foreach (var user in mostTreasure)
+                        {
+                            Program.Speak($"{position}. {user.Username} ({user.AllTimeTreasure})");
+                            position++;
+                        }
+                        OpenMenu();
+                        break;
+                    }
+                case 3:
+                    ReadRules();
+                    break;
+                case 4:
+                    Options.Run();
+                    break;
             }
         }
 

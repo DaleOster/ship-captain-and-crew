@@ -4,15 +4,13 @@
     {
         public static void Run()
         {
-            Console.WriteLine();
-            Console.Write("Loading ");
-            for (int i = 0; i < 3; i++)
+            var percentage = 0;
+            for (int i = 0; i < 4; i++)
             {
-                Thread.Sleep(1000);
-                Console.Write(".");
+                percentage += 25;
+                Thread.Sleep(500);
+                Program.Speak($"Loading is {percentage} percent complete.");
             }
-            Console.WriteLine();
-            Console.WriteLine();
         }
     }
 }

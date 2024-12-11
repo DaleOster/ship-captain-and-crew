@@ -1,33 +1,46 @@
-﻿namespace ShipCaptainAndCrew
+﻿using System.Speech.Recognition;
+
+namespace ShipCaptainAndCrew
 {
     public class Gameplay
     {
         public static int ChooseOponents()
         {
-            Console.WriteLine();
-            Console.WriteLine("How many oponents would you like to play against?");
-            var awaitingInput = true;
-            var oponents = 0;
-            while (awaitingInput == true)
+            Program.Speak("How many oponents would you like to play against? 1 currently selected.");
+            int oponents = 1;
+            bool enterPressed = false;
+            while (enterPressed == false)
             {
-                var input = Console.ReadLine();
-                var validInput = int.TryParse(input, out oponents);
-                if (validInput == true)
+                ConsoleKey key = Console.ReadKey(intercept: true).Key;
+                switch (key)
                 {
-                    if (oponents >= 1)
-                    {
-                        awaitingInput = false;
-                    }
-                    else
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine("Please choose 1 or more other players.");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine();
-                    Console.WriteLine("Please enter a valid number.");
+                    case ConsoleKey.UpArrow:
+                        if (oponents < 3)
+                        {
+                            oponents += 1;
+                            Program.Speak(oponents.ToString());
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case ConsoleKey.DownArrow:
+                        if (oponents > 1)
+                        {
+                            oponents -= 1;
+                            Program.Speak(oponents.ToString());
+                            break;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    case ConsoleKey.Enter:
+                        enterPressed = true;
+                        break;
+                    default:
+                        continue;
                 }
             }
             return oponents;
@@ -37,10 +50,9 @@
         {
             for (int i = 0; i <= oponents - 1; i++)
             {
-                Console.WriteLine();
-                Console.WriteLine($"What would you like player {i + 2}'s name to be?");
+                Program.Speak($"What would you like player {i + 2}'s name to be?");
                 var player = new Player();
-                var name = Console.ReadLine();
+                var name = Program.hideInput();
                 player.SetName(name);
                 player.SetScore(0);
                 PlayerList.allPlayers.Add(player);
@@ -55,21 +67,14 @@
             {
                 var random = new Random();
                 var treasure = 0;
-                Console.WriteLine();
-                Console.WriteLine("It's your turn. What would you like to do?");
-                Console.WriteLine("1) View scoreboard");
-                Console.WriteLine("2) Roll the dice");
-                var input = Console.ReadLine();
-                int choice;
-                var validInput = int.TryParse(input, out choice);
-                if (validInput == true)
+                Program.Speak("It's your turn. What would you like to do?");
+                ConsoleKey key = Console.ReadKey(intercept: true).Key;
+                switch (key)
                 {
-                    if (choice == 1)
-                    {
+                    case ConsoleKey.S:
                         PlayerList.Scoreboard();
-                    }
-                    else if (choice == 2)
-                    {
+                        break;
+                    case ConsoleKey.R:
                         foreach (var player in PlayerList.allPlayers)
                         {
                             if (score < 50 || player.GetScore() <= score - 12)
@@ -80,13 +85,12 @@
                                 var numberOfDice = 5;
                                 for (int i = 0; i < 3; i++)
                                 {
-                                    Console.WriteLine();
-                                    Console.WriteLine($"It's turn {i + 1} for {player.GetName()}.");
+                                    Program.Speak($"It's roll {i + 1} for {player.GetName()}.");
                                     var dice = RollDice(numberOfDice);
-                                    Console.WriteLine($"{player.GetName()} rolled the following dice:");
+                                    Program.Speak($"{player.GetName()} rolled the following dice:");
                                     for (int j = 0; j < dice.Count; j++)
                                     {
-                                        Console.WriteLine(dice[j]);
+                                        Program.Speak(dice[j].ToString());
                                     }
                                     if (performShipCheck == true)
                                     {
@@ -135,44 +139,28 @@
                                             {
                                                 treasure += dice[k];
                                             }
-                                            Console.WriteLine($"You currently have {treasure} pieces of treasure.");
-                                            Console.WriteLine("Would you like to keep it or try for more?");
-                                            Console.WriteLine();
-                                            Console.WriteLine("1) Keep what I've got.");
-                                            Console.WriteLine("2) Plunder more treasure!");
+                                            Program.Speak($"You currently have {treasure} pieces of treasure.");
+                                            Program.Speak("Would you like to keep it or try for more?");
                                             while (true)
                                             {
-                                                var userInput = Console.ReadLine();
-                                                int decision;
-                                                var validChoice = int.TryParse(userInput, out decision);
-                                                if (validChoice == true)
+                                                key = Console.ReadKey(intercept: true).Key;
+                                                switch (key)
                                                 {
-                                                    if (decision == 1)
-                                                    {
-                                                        Console.WriteLine($"{player.GetName()} has gained {treasure} pieces of treasure!");
+                                                    case ConsoleKey.K:
+                                                        Program.Speak($"{player.GetName()} has gained {treasure} pieces of treasure!");
                                                         player.SetScore(treasure);
                                                         i = 3;
                                                         break;
-                                                    }
-                                                    else if (decision == 2)
-                                                    {
-                                                        Console.WriteLine($"May your blade always be wet, and powder dry!");
+                                                    case ConsoleKey.P:
+                                                        Program.Speak($"May your blade always be wet, and powder dry!");
                                                         break;
-                                                    }
-                                                    else
-                                                    {
-                                                        Console.WriteLine("Please make a valid selection.");
-                                                    }
                                                 }
-                                                else
-                                                {
-                                                    Console.WriteLine("Please make a valid selection.");
-                                                }
+                                                break;
                                             }
                                         }
                                         else if (i == 2)
                                         {
-                                            Console.WriteLine($"{player.GetName()} has gained {treasure} pieces of treasure!");
+                                            Program.Speak($"{player.GetName()} has gained {treasure} pieces of treasure!");
                                             player.SetScore(treasure);
                                         }
                                     }
@@ -188,7 +176,7 @@
                                             }
                                             if (treasure == 12)
                                             {
-                                                Console.WriteLine($"{player.GetName()} has gained {treasure} pieces of treasure!");
+                                                Program.Speak($"{player.GetName()} has gained {treasure} pieces of treasure!");
                                                 player.SetScore(treasure);
                                                 i = 3;
                                             }
@@ -198,11 +186,11 @@
                                                 {
                                                     if (decision == 5)
                                                     {
-                                                        Console.WriteLine($"{player.GetName()} has {treasure} pieces of treasure but decided to search for more.");
+                                                        Program.Speak($"{player.GetName()} has {treasure} pieces of treasure but decided to search for more.");
                                                     }
                                                     else
                                                     {
-                                                        Console.WriteLine($"{player.GetName()} has gained {treasure} pieces of treasure!");
+                                                        Program.Speak($"{player.GetName()} has gained {treasure} pieces of treasure!");
                                                         player.SetScore(treasure);
                                                         // treasureSound.Play();
                                                         i = 3;
@@ -210,7 +198,7 @@
                                                 }
                                                 else
                                                 {
-                                                    Console.WriteLine($"{player.GetName()} has gained {treasure} pieces of treasure!");
+                                                    Program.Speak($"{player.GetName()} has gained {treasure} pieces of treasure!");
                                                     player.SetScore(treasure);
                                                 }
                                             }
@@ -220,18 +208,18 @@
                                                 {
                                                     if (decision <= 3)
                                                     {
-                                                        Console.WriteLine($"{player.GetName()} has {treasure} pieces of treasure but decided to search for more.");
+                                                        Program.Speak($"{player.GetName()} has {treasure} pieces of treasure but decided to search for more.");
                                                     }
                                                     else
                                                     {
-                                                        Console.WriteLine($"{player.GetName()} has gained {treasure} pieces of treasure!");
+                                                        Program.Speak($"{player.GetName()} has gained {treasure} pieces of treasure!");
                                                         player.SetScore(treasure);
                                                         i = 3;
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    Console.WriteLine($"{player.GetName()} has gained {treasure} pieces of treasure!");
+                                                    Program.Speak($"{player.GetName()} has gained {treasure} pieces of treasure!");
                                                     player.SetScore(treasure);
                                                 }
                                             }
@@ -239,11 +227,11 @@
                                             {
                                                 if (i < 2)
                                                 {
-                                                    Console.WriteLine($"{player.GetName()} has {treasure} pieces of treasure but decided to search for more.");
+                                                    Program.Speak($"{player.GetName()} has {treasure} pieces of treasure but decided to search for more.");
                                                 }
                                                 else
                                                 {
-                                                    Console.WriteLine($"{player.GetName()} has gained {treasure} pieces of treasure!");
+                                                    Program.Speak($"{player.GetName()} has gained {treasure} pieces of treasure!");
                                                     player.SetScore(treasure);
                                                     i = 3;
                                                 }
@@ -258,26 +246,19 @@
                                     score = temporaryScore;
                                 }
                                 var leader = PlayerList.allPlayers.OrderByDescending(p => p.Score).First();
-                                Console.WriteLine($"The current leader is {leader.Name} with {leader.Score} pieces of treasure.");
+                                Program.Speak($"The current leader is {leader.Name} with {leader.Score} pieces of treasure.");
                             }
                         }
-                    }
-                    else
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine("Please make a valid selection.");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine();
-                    Console.WriteLine("Please make a valid selection.");
+                        break;
+                    default:
+                        Program.Speak("Please make a valid selection.");
+                        break;
                 }
             } while (score < 50);
             string winner = "";
             var scoreToBeat = 0;
             foreach (Player player in PlayerList.allPlayers)
-            { 
+            {
                 if (player.GetScore() > scoreToBeat)
                 {
                     scoreToBeat = player.GetScore();
@@ -292,9 +273,7 @@
             {
                 userRepo.UpdateUser(PlayerList.allPlayers.First().GetName(), 1, 0, PlayerList.allPlayers.First().GetScore());
             }
-            Console.WriteLine();
-            Console.WriteLine($"Congrats to the winner, {winner}!");
-            Console.WriteLine();
+            Program.Speak($"Congrats to the winner, {winner}!");
             for (int i = PlayerList.allPlayers.Count - 1; i > 0; i--)
             {
                 PlayerList.allPlayers.RemoveAt(i);
@@ -321,14 +300,14 @@
             {
                 if (dice[i] == 6 && player.Name == PlayerList.allPlayers.First().GetName())
                 {
-                    Console.WriteLine("You got your ship!");
+                    Program.Speak("You got your ship!");
                     hasShip = true;
                     dice.RemoveAt(i);
                     break;
                 }
                 else if (dice[i] == 6 && player.Name != PlayerList.allPlayers.First().GetName())
                 {
-                    Console.WriteLine($"{player.Name} got their ship!");
+                    Program.Speak($"{player.Name} got their ship!");
                     hasShip = true;
                     dice.RemoveAt(i);
                     break;
@@ -344,14 +323,14 @@
             {
                 if (dice[i] == 5 && player.Name == PlayerList.allPlayers.First().GetName())
                 {
-                    Console.WriteLine("You got your captain!");
+                    Program.Speak("You got your captain!");
                     dice.RemoveAt(i);
                     hasCaptain = true;
                     break;
                 }
                 else if (dice[i] == 5 && player.Name != PlayerList.allPlayers.First().GetName())
                 {
-                    Console.WriteLine($"{player.Name} got their captain!");
+                    Program.Speak($"{player.Name} got their captain!");
                     dice.RemoveAt(i);
                     hasCaptain = true;
                     break;
@@ -367,14 +346,14 @@
             {
                 if (dice[i] == 4 && player.Name == PlayerList.allPlayers.First().GetName())
                 {
-                    Console.WriteLine("You got your crew!");
+                    Program.Speak("You got your crew!");
                     dice.RemoveAt(i);
                     hasCrew = true;
                     break;
                 }
                 else if (dice[i] == 4 && player.Name != PlayerList.allPlayers.First().GetName())
                 {
-                    Console.WriteLine($"{player.Name} got their crew!");
+                    Program.Speak($"{player.Name} got their crew!");
                     dice.RemoveAt(i);
                     hasCrew = true;
                     break;

@@ -6,11 +6,10 @@
 
         public static void Scoreboard()
         {
-            Console.WriteLine("");
-            Console.WriteLine("Current scores:");
+            Program.Speak("Current scores:");
             foreach (var player in allPlayers)
             {
-                Console.WriteLine($"{player.GetName()}: {player.GetScore()}");
+                Program.Speak($"{player.GetName()}: {player.GetScore()}");
             }
         }
     }
