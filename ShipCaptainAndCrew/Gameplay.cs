@@ -4,10 +4,10 @@ namespace ShipCaptainAndCrew
 {
     public class Gameplay
     {
-        public static int ChooseOponents()
+        public static int ChooseOpponents()
         {
-            Program.Speak("How many oponents would you like to play against? 1 currently selected.");
-            int oponents = 1;
+            Program.Speak("How many opponents would you like to play against? 1 currently selected.");
+            int opponents = 1;
             bool enterPressed = false;
             while (enterPressed == false)
             {
@@ -15,10 +15,10 @@ namespace ShipCaptainAndCrew
                 switch (key)
                 {
                     case ConsoleKey.UpArrow:
-                        if (oponents < 3)
+                        if (opponents < 3)
                         {
-                            oponents += 1;
-                            Program.Speak(oponents.ToString());
+                            opponents += 1;
+                            Program.Speak(opponents.ToString());
                             break;
                         }
                         else
@@ -26,10 +26,10 @@ namespace ShipCaptainAndCrew
                             break;
                         }
                     case ConsoleKey.DownArrow:
-                        if (oponents > 1)
+                        if (opponents > 1)
                         {
-                            oponents -= 1;
-                            Program.Speak(oponents.ToString());
+                            opponents -= 1;
+                            Program.Speak(opponents.ToString());
                             break;
                         }
                         else
@@ -43,7 +43,7 @@ namespace ShipCaptainAndCrew
                         continue;
                 }
             }
-            return oponents;
+            return opponents;
         }
 
         public static void SetUpGame(int oponents)

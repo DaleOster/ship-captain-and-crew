@@ -57,7 +57,7 @@ namespace ShipCaptainAndCrew
             switch (currentMenuOption)
             {
                 case 0:
-                    Gameplay.SetUpGame(Gameplay.ChooseOponents());
+                    Gameplay.SetUpGame(Gameplay.ChooseOpponents());
                     Gameplay.Play();
                     break;
                 case 1:
