@@ -19,23 +19,15 @@ namespace ShipCaptainAndCrew
                         {
                             opponents += 1;
                             Program.Speak(opponents.ToString());
-                            break;
-                        }
-                        else
-                        {
-                            break;
-                        }
+                        };
+                        break;
                     case ConsoleKey.DownArrow:
                         if (opponents > 1)
                         {
                             opponents -= 1;
                             Program.Speak(opponents.ToString());
-                            break;
                         }
-                        else
-                        {
-                            break;
-                        }
+                        break;
                     case ConsoleKey.Enter:
                         enterPressed = true;
                         break;
