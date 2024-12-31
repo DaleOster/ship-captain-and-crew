@@ -109,86 +109,157 @@ namespace ShipCaptainAndCrew
                     Run();
                     break;
                 case 2:
-                    Program.Speak("Please select desired voice.");
                     var voices = Program.synth.GetInstalledVoices();
-                    bool voiceChanged = false;
-                    while (voiceChanged == false)
+                    Program.Speak($"Please select desired voice - On {voices[0].VoiceInfo.Name}");
+                    int currentVoice = 0;
+                    int newVoice;
+                    enterPressed = false;
+                    while (enterPressed == false)
                     {
-                        foreach (var voice in voices)
+                        ConsoleKey key = Console.ReadKey(intercept: true).Key;
+                        switch (key)
                         {
-                            bool validSelection = false;
-                            do
-                            {
-                                Program.Speak($"Would you like to use {voice.VoiceInfo.Name}?");
-                                ConsoleKey input = Console.ReadKey(intercept: true).Key;
-                                switch (input)
+                            case ConsoleKey.UpArrow:
+                                if (currentVoice > 0)
                                 {
-                                    case ConsoleKey.Y:
-                                        Program.synth.SelectVoice(voice.VoiceInfo.Name.ToString());
-                                        validSelection = true;
-                                        voiceChanged = true;
-                                        Run();
-                                        break;
-                                    case ConsoleKey.N:
-                                        validSelection = true;
-                                        break;
-                                    case ConsoleKey.B:
-                                        validSelection = true;
-                                        voiceChanged = true;
-                                        Menu.OpenMenu();
-                                        break;
-                                    default:
-                                        Program.Speak("Please make a valid selection.");
-                                        continue;
+                                    newVoice = currentVoice - 1;
+                                    Program.Speak(voices[newVoice].VoiceInfo.Name);
+                                    currentVoice--;
+                                    break;
                                 }
-                            }
-                            while (validSelection == false);
+                                else
+                                {
+                                    currentVoice = 0;
+                                    break;
+                                }
+                            case ConsoleKey.DownArrow:
+                                if (currentVoice < voices.Count - 1)
+                                {
+                                    newVoice = currentVoice + 1;
+                                    Program.Speak(voices[newVoice].VoiceInfo.Name);
+                                    currentVoice++;
+                                    break;
+                                }
+                                else
+                                {
+                                    currentVoice = voices.Count - 1;
+                                    break;
+                                }
+                            case ConsoleKey.Enter:
+                                Program.synth.SelectVoice(voices[currentVoice].VoiceInfo.Name);
+                                Run();
+                                enterPressed = true;
+                                break;
+                            default:
+                                continue;
                         }
                     }
                     break;
                 case 3:
                     Program.Speak("Are you sure you want to reset your stats?");
                     Program.Speak("This will only reset your stats for this game.");
-                    bool validChoice = false;
-                    while (validChoice == false)
+                    menuItems = new List<string>() { "Yes", "No" };
+                    currentMenuOption = 0;
+                    enterPressed = false;
+                    while (enterPressed == false)
                     {
                         ConsoleKey key = Console.ReadKey(intercept: true).Key;
                         switch (key)
                         {
-                            case ConsoleKey.Y:
-                                userRepo.ResetStats(PlayerList.allPlayers.First().GetName());
-                                validChoice = true;
-                                break;
-                            case ConsoleKey.N:
-                                Run();
-                                validChoice = true;
+                            case ConsoleKey.UpArrow:
+                                if (currentMenuOption > 0)
+                                {
+                                    newMenuOption = currentMenuOption - 1;
+                                    Program.Speak(menuItems[newMenuOption]);
+                                    currentMenuOption--;
+                                    break;
+                                }
+                                else
+                                {
+                                    currentMenuOption = 0;
+                                    break;
+                                }
+                            case ConsoleKey.DownArrow:
+                                if (currentMenuOption < 1)
+                                {
+                                    newMenuOption = currentMenuOption + 1;
+                                    Program.Speak(menuItems[newMenuOption]);
+                                    currentMenuOption++;
+                                    break;
+                                }
+                                else
+                                {
+                                    currentMenuOption = 1;
+                                    break;
+                                }
+                            case ConsoleKey.Enter:
+                                if (currentMenuOption == 0)
+                                {
+                                    userRepo.ResetStats(PlayerList.allPlayers.First().GetName());
+                                }
+                                else
+                                {
+                                    Run();
+                                }
+                                enterPressed = true;
                                 break;
                             default:
-                                break;
+                                continue;
                         }
-                    };
+                    }
                     break;
                 case 4:
                     Program.Speak("Are you sure you want to delete your account? This is permanent and cannot be undone.");
                     Program.Speak("Please note that this will delete your account for all games, not just this one.");
-                    validChoice = false;
-                    while (validChoice == false)
+                    menuItems = new List<string>() { "Yes", "No" };
+                    currentMenuOption = 0;
+                    enterPressed = false;
+                    while (enterPressed == false)
                     {
                         ConsoleKey key = Console.ReadKey(intercept: true).Key;
                         switch (key)
                         {
-                            case ConsoleKey.Y:
-                                userRepo.DeleteUser(PlayerList.allPlayers.First().GetName());
-                                validChoice = true;
-                                break;
-                            case ConsoleKey.N:
-                                Run();
-                                validChoice = true;
+                            case ConsoleKey.UpArrow:
+                                if (currentMenuOption > 0)
+                                {
+                                    newMenuOption = currentMenuOption - 1;
+                                    Program.Speak(menuItems[newMenuOption]);
+                                    currentMenuOption--;
+                                    break;
+                                }
+                                else
+                                {
+                                    currentMenuOption = 0;
+                                    break;
+                                }
+                            case ConsoleKey.DownArrow:
+                                if (currentMenuOption < 1)
+                                {
+                                    newMenuOption = currentMenuOption + 1;
+                                    Program.Speak(menuItems[newMenuOption]);
+                                    currentMenuOption++;
+                                    break;
+                                }
+                                else
+                                {
+                                    currentMenuOption = 1;
+                                    break;
+                                }
+                            case ConsoleKey.Enter:
+                                if (currentMenuOption == 0)
+                                {
+                                    userRepo.DeleteUser(PlayerList.allPlayers.First().GetName());
+                                }
+                                else
+                                {
+                                    Run();
+                                }
+                                enterPressed = true;
                                 break;
                             default:
-                                break;
+                                continue;
                         }
-                    };
+                    }
                     break;
             }
         }

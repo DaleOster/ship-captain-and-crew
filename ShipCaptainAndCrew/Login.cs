@@ -7,13 +7,54 @@ namespace ShipCaptainAndCrew
         public static void Run()
         {
             var userRepo = DatabaseHelper.Connect();
-            Program.Speak("Do you have an existing account?");
+            Program.Speak("Do you have an existing account? - On Yes");
             var username = "";
             var humanPlayer = new Player();
-            ConsoleKey key = Console.ReadKey(intercept: true).Key;
-            switch (key)
+            List<string> menuItems = new List<string>() { "Yes", "No" };
+            int currentMenuOption = 0;
+            int newMenuOption;
+            bool enterPressed = false;
+            while (enterPressed == false)
             {
-                case ConsoleKey.Y:
+                ConsoleKey key = Console.ReadKey(intercept: true).Key;
+                switch (key)
+                {
+                    case ConsoleKey.UpArrow:
+                        if (currentMenuOption > 0)
+                        {
+                            newMenuOption = currentMenuOption - 1;
+                            Program.Speak(menuItems[newMenuOption]);
+                            currentMenuOption--;
+                            break;
+                        }
+                        else
+                        {
+                            currentMenuOption = 0;
+                            break;
+                        }
+                    case ConsoleKey.DownArrow:
+                        if (currentMenuOption < 1)
+                        {
+                            newMenuOption = currentMenuOption + 1;
+                            Program.Speak(menuItems[newMenuOption]);
+                            currentMenuOption++;
+                            break;
+                        }
+                        else
+                        {
+                            currentMenuOption = 1;
+                            break;
+                        }
+                    case ConsoleKey.Enter:
+                        enterPressed = true;
+                        break;
+                    default:
+                        continue;
+                }
+            }
+            switch (currentMenuOption)
+            {
+                case 0:
                     var validUsername = false;
                     while (validUsername == false)
                     {
@@ -76,7 +117,7 @@ namespace ShipCaptainAndCrew
                         }
                     }
                     break;
-                case ConsoleKey.N:
+                case 1:
                     validUsername = false;
                     while (validUsername == false)
                     {
@@ -145,6 +186,7 @@ namespace ShipCaptainAndCrew
                     Login.Run();
                     break;
             }
+
         }
     }
 }
