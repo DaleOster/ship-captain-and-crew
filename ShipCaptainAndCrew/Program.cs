@@ -1,4 +1,6 @@
-﻿using System.Speech.Synthesis;
+﻿using System.Media;
+using System.Numerics;
+using System.Speech.Synthesis;
 using System.Text;
 
 namespace ShipCaptainAndCrew
@@ -6,9 +8,12 @@ namespace ShipCaptainAndCrew
     public class Program
     {
         public static SpeechSynthesizer synth = new SpeechSynthesizer();
+        public static SoundPlayer player = new SoundPlayer();
 
         static void Main(string[] args)
         {
+            PlaySound(@"Audio\736852__xkeril__transition-hit-and-whoosh.wav");
+            Thread.Sleep(2500);
             synth.SetOutputToDefaultAudioDevice();
             synth.Speak("Ahoy, matey!");
             Login.Run();
@@ -35,6 +40,13 @@ namespace ShipCaptainAndCrew
                 }
             }
             return input.ToString();
+        }
+
+        public static void PlaySound(string soundFilePath)
+        {
+            player.SoundLocation = soundFilePath;
+            player.Load();
+            player.Play();
         }
     }
 }

@@ -139,6 +139,7 @@ namespace ShipCaptainAndCrew
                                                 switch (key)
                                                 {
                                                     case ConsoleKey.K:
+                                                        Program.PlaySound(@"Audio\573350__doudar41__coins29.wav");
                                                         Program.Speak($"{player.GetName()} has gained {treasure} pieces of treasure!");
                                                         player.SetScore(treasure);
                                                         i = 3;
@@ -152,6 +153,7 @@ namespace ShipCaptainAndCrew
                                         }
                                         else if (i == 2)
                                         {
+                                            Program.PlaySound(@"Audio\573350__doudar41__coins29.wav");
                                             Program.Speak($"{player.GetName()} has gained {treasure} pieces of treasure!");
                                             player.SetScore(treasure);
                                         }
@@ -168,6 +170,7 @@ namespace ShipCaptainAndCrew
                                             }
                                             if (treasure == 12)
                                             {
+                                                Program.PlaySound(@"Audio\573350__doudar41__coins29.wav");
                                                 Program.Speak($"{player.GetName()} has gained {treasure} pieces of treasure!");
                                                 player.SetScore(treasure);
                                                 i = 3;
@@ -182,14 +185,15 @@ namespace ShipCaptainAndCrew
                                                     }
                                                     else
                                                     {
+                                                        Program.PlaySound(@"Audio\573350__doudar41__coins29.wav");
                                                         Program.Speak($"{player.GetName()} has gained {treasure} pieces of treasure!");
                                                         player.SetScore(treasure);
-                                                        // treasureSound.Play();
                                                         i = 3;
                                                     }
                                                 }
                                                 else
                                                 {
+                                                    Program.PlaySound(@"Audio\573350__doudar41__coins29.wav");
                                                     Program.Speak($"{player.GetName()} has gained {treasure} pieces of treasure!");
                                                     player.SetScore(treasure);
                                                 }
@@ -204,6 +208,7 @@ namespace ShipCaptainAndCrew
                                                     }
                                                     else
                                                     {
+                                                        Program.PlaySound(@"Audio\573350__doudar41__coins29.wav");
                                                         Program.Speak($"{player.GetName()} has gained {treasure} pieces of treasure!");
                                                         player.SetScore(treasure);
                                                         i = 3;
@@ -211,6 +216,7 @@ namespace ShipCaptainAndCrew
                                                 }
                                                 else
                                                 {
+                                                    Program.PlaySound(@"Audio\573350__doudar41__coins29.wav");
                                                     Program.Speak($"{player.GetName()} has gained {treasure} pieces of treasure!");
                                                     player.SetScore(treasure);
                                                 }
@@ -223,6 +229,7 @@ namespace ShipCaptainAndCrew
                                                 }
                                                 else
                                                 {
+                                                    Program.PlaySound(@"Audio\573350__doudar41__coins29.wav");
                                                     Program.Speak($"{player.GetName()} has gained {treasure} pieces of treasure!");
                                                     player.SetScore(treasure);
                                                     i = 3;
@@ -276,6 +283,8 @@ namespace ShipCaptainAndCrew
 
         public static List<int> RollDice(int numberOfDice)
         {
+            Program.PlaySound(@"Audio\678198__phorgador__dice-c.wav");
+            Thread.Sleep(2500);
             var dice = new List<int>();
             var random = new Random();
             for (int i = 0; i < numberOfDice; i++)

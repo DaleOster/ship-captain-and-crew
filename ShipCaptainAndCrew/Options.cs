@@ -27,6 +27,7 @@ namespace ShipCaptainAndCrew
                     case ConsoleKey.UpArrow:
                         if (currentMenuOption > 0)
                         {
+                            Program.PlaySound(@"Audio\628638__el_boss__menu-select-tick.wav");
                             newMenuOption = currentMenuOption - 1;
                             Program.Speak(menuItems[newMenuOption]);
                             currentMenuOption--;
@@ -40,6 +41,7 @@ namespace ShipCaptainAndCrew
                     case ConsoleKey.DownArrow:
                         if (currentMenuOption < 4)
                         {
+                            Program.PlaySound(@"Audio\628638__el_boss__menu-select-tick.wav");
                             newMenuOption = currentMenuOption + 1;
                             Program.Speak(menuItems[newMenuOption]);
                             currentMenuOption++;
@@ -51,6 +53,7 @@ namespace ShipCaptainAndCrew
                             break;
                         }
                     case ConsoleKey.Enter:
+                        Program.PlaySound(@"Audio\628638__el_boss__menu-select-tick.wav");
                         enterPressed = true;
                         break;
                     default:
@@ -75,6 +78,7 @@ namespace ShipCaptainAndCrew
                             case ConsoleKey.UpArrow:
                                 if (currentMenuOption < 10)
                                 {
+                                    Program.PlaySound(@"Audio\628638__el_boss__menu-select-tick.wav");
                                     newMenuOption = currentMenuOption + 1;
                                     Program.Speak(newMenuOption.ToString());
                                     currentMenuOption++;
@@ -88,6 +92,7 @@ namespace ShipCaptainAndCrew
                             case ConsoleKey.DownArrow:
                                 if (currentMenuOption > -10)
                                 {
+                                    Program.PlaySound(@"Audio\628638__el_boss__menu-select-tick.wav");
                                     newMenuOption = currentMenuOption - 1;
                                     Program.Speak(newMenuOption.ToString());
                                     currentMenuOption--;
@@ -99,6 +104,7 @@ namespace ShipCaptainAndCrew
                                     break;
                                 }
                             case ConsoleKey.Enter:
+                                Program.PlaySound(@"Audio\628638__el_boss__menu-select-tick.wav");
                                 enterPressed = true;
                                 break;
                             default:
@@ -122,6 +128,7 @@ namespace ShipCaptainAndCrew
                             case ConsoleKey.UpArrow:
                                 if (currentVoice > 0)
                                 {
+                                    Program.PlaySound(@"Audio\628638__el_boss__menu-select-tick.wav");
                                     newVoice = currentVoice - 1;
                                     Program.Speak(voices[newVoice].VoiceInfo.Name);
                                     currentVoice--;
@@ -135,6 +142,7 @@ namespace ShipCaptainAndCrew
                             case ConsoleKey.DownArrow:
                                 if (currentVoice < voices.Count - 1)
                                 {
+                                    Program.PlaySound(@"Audio\628638__el_boss__menu-select-tick.wav");
                                     newVoice = currentVoice + 1;
                                     Program.Speak(voices[newVoice].VoiceInfo.Name);
                                     currentVoice++;
@@ -146,6 +154,7 @@ namespace ShipCaptainAndCrew
                                     break;
                                 }
                             case ConsoleKey.Enter:
+                                Program.PlaySound(@"Audio\628638__el_boss__menu-select-tick.wav");
                                 Program.synth.SelectVoice(voices[currentVoice].VoiceInfo.Name);
                                 Run();
                                 enterPressed = true;
@@ -169,6 +178,7 @@ namespace ShipCaptainAndCrew
                             case ConsoleKey.UpArrow:
                                 if (currentMenuOption > 0)
                                 {
+                                    Program.PlaySound(@"Audio\628638__el_boss__menu-select-tick.wav");
                                     newMenuOption = currentMenuOption - 1;
                                     Program.Speak(menuItems[newMenuOption]);
                                     currentMenuOption--;
@@ -182,6 +192,7 @@ namespace ShipCaptainAndCrew
                             case ConsoleKey.DownArrow:
                                 if (currentMenuOption < 1)
                                 {
+                                    Program.PlaySound(@"Audio\628638__el_boss__menu-select-tick.wav");
                                     newMenuOption = currentMenuOption + 1;
                                     Program.Speak(menuItems[newMenuOption]);
                                     currentMenuOption++;
@@ -195,10 +206,12 @@ namespace ShipCaptainAndCrew
                             case ConsoleKey.Enter:
                                 if (currentMenuOption == 0)
                                 {
+                                    Program.PlaySound(@"Audio\628638__el_boss__menu-select-tick.wav");
                                     userRepo.ResetStats(PlayerList.allPlayers.First().GetName());
                                 }
                                 else
                                 {
+                                    Program.PlaySound(@"Audio\628638__el_boss__menu-select-tick.wav");
                                     Run();
                                 }
                                 enterPressed = true;
@@ -222,6 +235,7 @@ namespace ShipCaptainAndCrew
                             case ConsoleKey.UpArrow:
                                 if (currentMenuOption > 0)
                                 {
+                                    Program.PlaySound(@"Audio\628638__el_boss__menu-select-tick.wav");
                                     newMenuOption = currentMenuOption - 1;
                                     Program.Speak(menuItems[newMenuOption]);
                                     currentMenuOption--;
@@ -235,6 +249,7 @@ namespace ShipCaptainAndCrew
                             case ConsoleKey.DownArrow:
                                 if (currentMenuOption < 1)
                                 {
+                                    Program.PlaySound(@"Audio\628638__el_boss__menu-select-tick.wav");
                                     newMenuOption = currentMenuOption + 1;
                                     Program.Speak(menuItems[newMenuOption]);
                                     currentMenuOption++;
@@ -248,10 +263,12 @@ namespace ShipCaptainAndCrew
                             case ConsoleKey.Enter:
                                 if (currentMenuOption == 0)
                                 {
+                                    Program.PlaySound(@"Audio\628638__el_boss__menu-select-tick.wav");
                                     userRepo.DeleteUser(PlayerList.allPlayers.First().GetName());
                                 }
                                 else
                                 {
+                                    Program.PlaySound(@"Audio\628638__el_boss__menu-select-tick.wav");
                                     Run();
                                 }
                                 enterPressed = true;
